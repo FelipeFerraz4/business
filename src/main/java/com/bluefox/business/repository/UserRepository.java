@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.bluefox.business.model.User;
 
+/**
+ * Interface for accessing user data from the database.
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
     

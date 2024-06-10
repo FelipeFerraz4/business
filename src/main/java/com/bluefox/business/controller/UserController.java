@@ -1,41 +1,68 @@
 package com.bluefox.business.controller;
 
+import com.bluefox.business.model.User;
+import com.bluefox.business.service.UserService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.bluefox.business.repository.UserRepository;
-import com.bluefox.business.model.User;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
     
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
+    /**
+     * Returns a list of all users.
+     * @return Returns all active users.
+     */
+    @Operation(summary = "Get all active users")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Sucessful operation"),
+    })
     @GetMapping
+    public List<User> getAllActiveUsers() {
+        return userService.findAllActiveUsers();
+    }
+    
+    /**
+     * Returns a list of all active users.
+     * @return Returns all users.
+     */
+    @Operation(summary = "Get all users")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Sucessful operation"),
+    })
+    @GetMapping("/all")
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userService.findAllUsers();
     }
 
+    /**
+     * Finds a user by their ID.
+     * @param id The user ID
+     * @return Returns a user by ID.
+     */
+    @Operation(summary = "Get user by ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Sucessful operation"),
+        @ApiResponse(responseCode = "404", description = "User not found")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        Optional<User> user = userRepository.findById(id);
+        Optional<User> user = userService.findUserById(id);
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
         } else {
@@ -43,48 +70,77 @@ public class UserController {
         }
     }
 
+    /**
+     * Create a new user
+     * @return Creates a new user.
+     */
+    @Operation(summary = "Create a new user")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Sucessful operation"),
+    })
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        User saveUser = userRepository.save(user);
+        User savedUser = userService.saveUser(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                         .path("/{id}")
-                        .buildAndExpand(saveUser.getId())
+                        .buildAndExpand(savedUser.getId())
                         .toUri();
-        return ResponseEntity.created(location).body(saveUser);
+        return ResponseEntity.created(location).body(savedUser);
     }
 
+    /**
+     * Updates an existing user.
+     * @param id The user ID
+     * @param newUser The user object with the new data
+     * @return Updates an existing user.
+     */
+    @Operation(summary = "Update an existing user")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Sucessful operation"),
+        @ApiResponse(responseCode = "404", description = "User not found")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User newUser) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            User updateUser = user.get();
-
-            updateUser.setName(newUser.getName());
-            updateUser.setEmail(newUser.getEmail());
-            updateUser.setPassword(newUser.getPassword());
-            updateUser.setCpf(newUser.getCpf());
-            updateUser.setRg(newUser.getRg());
-            updateUser.setRole(newUser.getRole());
-            updateUser.setStatus(newUser.getStatus());
-            
-            userRepository.save(updateUser);
-
-            return ResponseEntity.ok(updateUser);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        Optional<User> updatedUser = userService.updateUser(id, newUser);
+        return updatedUser.map(user -> ResponseEntity.ok(user))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
+    /**
+     * This method disables an existing user from the system
+     * @param id The user ID
+     * @return Disables a user
+     */
+    @Operation(summary = "Disable a user")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Sucessful operation"),
+        @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    @DeleteMapping("/{id}/disable")
+    public ResponseEntity<User> disableUser(@PathVariable Long id) {
+        Optional<User> disabledUser = userService.disableUser(id);
+        return disabledUser.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    /**
+     * This method deletes an existing user from the system
+     * @param id The user ID
+     * @return Deletes a user
+     */
+    @Operation(summary = "Delete a user")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "Sucessful operation"),
+        @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        Optional<User> user = userRepository.findById(id);
+        Optional<User> user = userService.findUserById(id);
         if (user.isPresent()) {
-            userRepository.deleteById(id);
+            userService.deleteUserById(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }
     }
-    
-    
 }
