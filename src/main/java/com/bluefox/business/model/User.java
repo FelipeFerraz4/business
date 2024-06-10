@@ -22,10 +22,10 @@ public class User {
     private String role;
     private String status;
 
-    // Construtor padrão necessário para JPA
+    // Default constructor required for JPA
     public User() {}
 
-    // Construtor com todos os campos
+    // Constructor with all fields
     public User(String name, String email, String cpf, String rg, String password, String role, String status) {
         this.name = name;
         this.email = email;
@@ -39,10 +39,10 @@ public class User {
 
     // Getters e Setters
 
+
     public Long getId() {
         return id;
     }
-
 
     public void setId(Long id) {
         this.id = id;
@@ -104,8 +104,12 @@ public class User {
         this.rg = rg;
     }
 
-    // Sobrescrever hashCode, equals e toString
+    // Override hashCode, equals and toString
 
+    /**
+     * Used to identify a user
+     * @return Returns the user's hashcode
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -114,6 +118,10 @@ public class User {
         return result;
     }
 
+    /**
+     * Used to compare users
+     * @return Returns true if it is equal and false if not
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -131,12 +139,13 @@ public class User {
         return true;
     }
 
+    /**
+     * Used to show a user's data
+     * @return Returns a String with user's data
+     */
     @Override
     public String toString() {
         return "id: " + id + ", name: " + name + ", email: " + email + ", cpf: " + cpf + ", rg: " + rg + ", password: "
                 + password + ", role: " + role + ", status: " + status;
     }
-
-
-
 }
