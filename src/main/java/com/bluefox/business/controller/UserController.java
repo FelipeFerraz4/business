@@ -26,7 +26,7 @@ public class UserController {
 
     /**
      * 
-     * @return Retorna todos os usuários ativos.
+     * @return Returns all active users.
      */
     @Operation(summary = "Get all active users")
     @ApiResponses(value = {
@@ -39,7 +39,7 @@ public class UserController {
     
     /**
      * 
-     * @return Retorna todos os usuários.
+     * @return Returns all users.
      */
     @Operation(summary = "Get all users")
     @ApiResponses(value = {
@@ -53,7 +53,7 @@ public class UserController {
     /**
      * 
      * @param id The user ID
-     * @return Retorna um usuário pelo ID.
+     * @return Returns a user by ID.
      */
     @Operation(summary = "Get user by ID")
     @ApiResponses(value = {
@@ -72,7 +72,7 @@ public class UserController {
 
     /**
      * 
-     * @return Cria um novo usuário.
+     * @return Creates a new user.
      */
     @Operation(summary = "Create a new user")
     @ApiResponses(value = {
@@ -92,7 +92,7 @@ public class UserController {
      * 
      * @param id The user ID
      * @param newUser
-     * @return Atualiza um usuário existente.
+     * @return Updates an existing user.
      */
     @Operation(summary = "Update an existing user")
     @ApiResponses(value = {

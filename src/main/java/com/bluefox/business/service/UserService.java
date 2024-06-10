@@ -36,7 +36,7 @@ public interface UserService {
     /**
      * Updates an existing user.
      * @param id O ID do usuário a ser atualizado
-     * @param updateUser O objeto de usuário com os novos dados
+     * @param updateUser The user object with the new data
      * @return An Optional containing the updated user if found, or empty if not found
      */
     Optional<User> updateUser(Long id, User updateUser);
