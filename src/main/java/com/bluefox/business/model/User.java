@@ -16,6 +16,8 @@ public class User {
 
     private String name;
     private String email;
+    private String cpf;
+    private String rg;
     private String password;
     private String role;
     private String status;
@@ -24,19 +26,23 @@ public class User {
     public User() {}
 
     // Construtor com todos os campos
-    public User(String name, String email, String password, String role, String status) {
+    public User(String name, String email, String cpf, String rg, String password, String role, String status) {
         this.name = name;
         this.email = email;
+        this.cpf = cpf;
+        this.rg = rg;
         this.password = password;
         this.role = role;
         this.status = status;
     }
+
 
     // Getters e Setters
 
     public Long getId() {
         return id;
     }
+
 
     public void setId(Long id) {
         this.id = id;
@@ -82,6 +88,22 @@ public class User {
         this.status = status;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
     // Sobrescrever hashCode, equals e toString
 
     @Override
@@ -111,7 +133,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "id: " + id + ", name: " + name + ", email: " + email + ", password: " + password + ", role: " + role
-                + ", status: " + status;
+        return "id: " + id + ", name: " + name + ", email: " + email + ", cpf: " + cpf + ", rg: " + rg + ", password: "
+                + password + ", role: " + role + ", status: " + status;
     }
+
+
+
 }

@@ -42,13 +42,6 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-    
-    // @PostMapping
-    // public ResponseEntity<User> createUser(@RequestBody User user) throws URISyntaxException {
-    //     User savedUser = userService.save(user);
-    //     URI location = new URI("/api/users/" + savedUser.getId());
-    //     return ResponseEntity.created(location).body(savedUser);
-    // }
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
@@ -69,6 +62,8 @@ public class UserController {
             updateUser.setName(newUser.getName());
             updateUser.setEmail(newUser.getEmail());
             updateUser.setPassword(newUser.getPassword());
+            updateUser.setCpf(newUser.getCpf());
+            updateUser.setRg(newUser.getRg());
             updateUser.setRole(newUser.getRole());
             updateUser.setStatus(newUser.getStatus());
             
