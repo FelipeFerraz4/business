@@ -11,6 +11,9 @@ import com.bluefox.business.model.User;
 import com.bluefox.business.repository.UserRepository;
 import com.bluefox.business.service.UserService;
 
+/**
+ * Implementation of UserService interface.
+ */
 @Service
 @Transactional
 public class UserServiceImpl implements UserService{
@@ -18,11 +21,21 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Retrieves a list of all users.
+     * 
+     * @return List of all users
+     */
     @Override
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * Retrieves a list of all active users.
+     * 
+     * @return List of all active users
+     */
     @Override
     public List<User> findAllActiveUsers() {
         return userRepository.findAll().stream()
@@ -30,17 +43,36 @@ public class UserServiceImpl implements UserService{
                     .toList();
     }
 
+    /**
+     * Retrieves a user by their ID.
+     * 
+     * @param id The ID of the user to retrieve
+     * @return An Optional containing the user, if found, or empty if not found
+     */
     @Override
     public Optional<User> findUserById(Long id) {
         return userRepository.findById(id);
     }
 
+    /**
+     * Saves a new user.
+     * 
+     * @param user The user to be saved
+     * @return The saved user
+     */
     @Override
     public User saveUser(User user) {
         user.setStatus("ACTIVE");
         return userRepository.save(user);
     }
 
+    /**
+     * Updates an existing user.
+     * 
+     * @param id The ID of the user to update
+     * @param updateUser The updated user object
+     * @return An Optional containing the updated user if found, or empty if not found
+     */
     @Override
     public Optional<User> updateUser(Long id, User updateUser) {
         return userRepository.findById(id).map(user -> {
@@ -55,6 +87,12 @@ public class UserServiceImpl implements UserService{
         });
     }
 
+    /**
+     * Disables an existing user.
+     * 
+     * @param id The ID of the user to disable
+     * @return An Optional containing the disabled user, if found, or empty if not found
+     */
     @Override
     public Optional<User> disableUser(Long id) {
         return userRepository.findById(id).map(user -> {
@@ -63,6 +101,11 @@ public class UserServiceImpl implements UserService{
         });
     }
 
+    /**
+     * Deletes a user by their ID.
+     * 
+     * @param id The ID of the user to delete
+     */
     @Override
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
