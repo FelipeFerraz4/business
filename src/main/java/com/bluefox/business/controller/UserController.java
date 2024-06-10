@@ -52,7 +52,7 @@ public class UserController {
 
     /**
      * 
-     * @param id
+     * @param id The user ID
      * @return Retorna um usuário pelo ID.
      */
     @Operation(summary = "Get user by ID")
@@ -90,7 +90,7 @@ public class UserController {
 
     /**
      * 
-     * @param id
+     * @param id The user ID
      * @param newUser
      * @return Atualiza um usuário existente.
      */
@@ -108,7 +108,7 @@ public class UserController {
 
     /**
      * Este método desabilita um usuário existente do sistema
-     * @param id
+     * @param id The user ID
      * @return Desabilita um usuário.
      */
     @Operation(summary = "Disable a user")
@@ -125,7 +125,7 @@ public class UserController {
 
     /**
      * Este método deleta um usuário existente do sistema
-     * @param id
+     * @param id The user ID
      * @return Deleta um usuário
      */
     @Operation(summary = "Delete a user")
