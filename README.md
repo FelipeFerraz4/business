@@ -2,7 +2,7 @@
 
 ## Uma API para uma plataforma de gestão empresarial, atualmente sendo um CRUD de usuários com algumas funções adicionais ( lista apenas os usuários ativos e para disabilitar usuário).
 
-## Inicialização do programa
+## Inicialização do programa, necessários instalação do docker
 
 ### Primeiramente é necessário fazer o clone do projeto
 ````Bash
