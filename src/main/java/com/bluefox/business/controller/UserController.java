@@ -25,7 +25,7 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 
+     * Returns a list of all users.
      * @return Returns all active users.
      */
     @Operation(summary = "Get all active users")
@@ -38,7 +38,7 @@ public class UserController {
     }
     
     /**
-     * 
+     * Returns a list of all active users.
      * @return Returns all users.
      */
     @Operation(summary = "Get all users")
@@ -51,7 +51,7 @@ public class UserController {
     }
 
     /**
-     * 
+     * Finds a user by their ID.
      * @param id The user ID
      * @return Returns a user by ID.
      */
@@ -71,7 +71,7 @@ public class UserController {
     }
 
     /**
-     * 
+     * Create a new user
      * @return Creates a new user.
      */
     @Operation(summary = "Create a new user")
@@ -89,9 +89,9 @@ public class UserController {
     }
 
     /**
-     * 
+     * Updates an existing user.
      * @param id The user ID
-     * @param newUser
+     * @param newUser The user object with the new data
      * @return Updates an existing user.
      */
     @Operation(summary = "Update an existing user")
@@ -107,9 +107,9 @@ public class UserController {
     }
 
     /**
-     * Este método desabilita um usuário existente do sistema
+     * This method disables an existing user from the system
      * @param id The user ID
-     * @return Desabilita um usuário.
+     * @return Disables a user
      */
     @Operation(summary = "Disable a user")
     @ApiResponses(value = {
@@ -124,9 +124,9 @@ public class UserController {
     }
 
     /**
-     * Este método deleta um usuário existente do sistema
+     * This method deletes an existing user from the system
      * @param id The user ID
-     * @return Deleta um usuário
+     * @return Deletes a user
      */
     @Operation(summary = "Delete a user")
     @ApiResponses(value = {
